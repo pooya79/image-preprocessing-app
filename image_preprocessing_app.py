@@ -155,7 +155,7 @@ class MainMenu(QWidget):
 
     def add_folder_clicked(self):
         folder = QFileDialog.getExistingDirectory(self,
-                                                    'Add Directory', 'C:/Users/pooya/Desktop/test',
+                                                    'Add Directory', QDir.homePath(),
                                                      QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
         if folder:
             file_list = []
@@ -167,7 +167,7 @@ class MainMenu(QWidget):
 
     def add_file_list(self, file_list):
         for image in file_list:
-            if image not in self.image_list:
+            if image[1] not in [x[1] for x in self.image_list]:
                 self.files_list.addItem(image[1])
                 if os.path.dirname(image[1]).split("/")[-1].strip().lower() in self.project_labels:
                     image.append(os.path.dirname(image[1]).split("/")[-1].strip().lower())
